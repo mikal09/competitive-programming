@@ -14,7 +14,7 @@ void dijkstra(int r, int n)
      {
         int u = Q.top().second;
         Q.pop();
-        for(auto &c : G[u])
+        for(auto &c : v[u])
         {
             int v = c.first;
             int w = c.second;
