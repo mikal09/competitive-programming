@@ -1,15 +1,17 @@
-
-vector <int> dis,v[N];
+vpi v[N];
+vi dis;
 
 void dijkstra(int r, int n) 
 {
-    priority_queue<pii, vector<pii>, greater<pii> > Q;  
-    dis.assign(n+1,1e18);
-    dis[r] = 0;
-    Q.push({0,r});
+     for(int i=0;i<=n;i++) v[i].clear();
 
-    while(!Q.empty())
-    {
+     priority_queue<pii, vector<pii>, greater<pii> > Q;  
+     dis.assign(n+1,1e18);
+     dis[r] = 0;
+     Q.push({0,r});
+
+     while(!Q.empty())
+     {
         int u = Q.top().second;
         Q.pop();
         for(auto &c : G[u])
@@ -22,6 +24,6 @@ void dijkstra(int r, int n)
                 Q.push({dis[v],v});
             }
         }
-    }
+     }
 
 }
