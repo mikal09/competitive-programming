@@ -1,10 +1,8 @@
 struct data
 {
-     int mn;
-
-     data() : mn(1e9) {};
+     int x;
+     data () : x(0) {};
 };
-
 struct SegTree
 {
      int N;
@@ -22,7 +20,7 @@ struct SegTree
 
      void merge(data &cur, data &l, data &r) 
      {
-          cur.mn = min(l.mn, r.mn);
+          cur.x = l.x + r.x;
      }
      
      void propagate(int node, int L, int R)
@@ -34,20 +32,20 @@ struct SegTree
                lazy[node*2] = lazy[node];
                lazy[node*2 + 1] = lazy[node]; 
           }
-          st[node].mn = lazy[node];
+          st[node].x += lazy[node]*(R-L+1);
           cLazy[node] = 0;
      }
 
-     void build(int node, int L, int R)
+     void Build(int node, int L, int R)
      {
           if(L==R)
           {
-               st[node].mn = 1e9;
+               st[node].x = a[L];
                return;
           }
           int M=(L + R)/2;
-          build(node*2, L, M);
-          build(node*2 + 1, M + 1, R);
+          Build(node*2, L, M);
+          Build(node*2 + 1, M + 1, R);
           merge(st[node], st[node*2], st[node*2+1]);
      }
 
@@ -65,20 +63,7 @@ struct SegTree
           data cur;
           merge(cur, left, right);
           return cur;
-     }
-
-     data pQuery(int node, int L, int R, int pos)
-     {
-          if(cLazy[node])
-               propagate(node, L, R);
-          if(L == R)
-               return st[node];
-          int M = (L + R)/2;
-          if(pos <= M)
-               return pQuery(node*2, L, M, pos);
-          else
-               return pQuery(node*2 + 1, M + 1, R, pos);
-     }    
+     }   
 
      void Update(int node, int L, int R, int i, int j, int val)
      {
@@ -99,42 +84,10 @@ struct SegTree
           merge(st[node], st[node*2], st[node*2 + 1]);
      }
 
-     void pUpdate(int node, int L, int R, int pos, int val)
-     {
-          if(cLazy[node])
-               propagate(node, L, R);
-          if(L == R)
-          {
-               cLazy[node] = 1;
-               lazy[node] = val;
-               propagate(node, L, R);
-               return;
-          }
-          int M = (L + R)/2;
-          if(pos <= M)
-               pUpdate(node*2, L, M, pos, val);
-          else
-               pUpdate(node*2 + 1, M + 1, R, pos, val);
-          merge(st[node], st[node*2], st[node*2 + 1]);
-     }
+     data query(int l, int r) { return Query(1, 1, N, l, r); }
 
-     data query(int pos)
-     {
-          return pQuery(1, 1, N, pos);
-     }
+     void update(int l, int r, int val) { Update(1, 1, N, l, r, val); }
 
-     data query(int l, int r)
-     {
-          return Query(1, 1, N, l, r);
-     }
+     void build() { Build(1, 1, N); }
 
-     void update(int pos, int val)
-     {
-          pUpdate(1, 1, N, pos, val);
-     }
-
-     void update(int l, int r, int val)
-     {
-          Update(1, 1, N, l, r, val);
-     }
 };
