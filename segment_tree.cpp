@@ -66,6 +66,6 @@ struct SegTree
 
      void update(int pos, int val) { Update(1, 1, N, pos, val); }
 
-     void build() { Build(1,1,N); }
+     void build() { Build(1, 1, N); }
 
 };
