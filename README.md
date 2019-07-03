@@ -1,1 +1,1 @@
-compettitve programming algorithm
+competitive programming algorithm
