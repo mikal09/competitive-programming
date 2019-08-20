@@ -9,7 +9,7 @@ int LIS(vector<int>& v)
      tail[0] = v[0];
      for (int i = 1; i < v.size(); i++)
      {
-          if (v[i] >= tail[length - 1])
+          if (v[i] > tail[length - 1])
                tail[length++] = v[i];
           else
           {
