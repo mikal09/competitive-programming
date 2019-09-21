@@ -1,73 +1,67 @@
-struct node;
-node *newNode();
+#include <bits/stdc++.h>
+using namespace std;
 
+typedef long long ll;
+typedef pair<ll, ll> pii;
 
-struct node {
-    int lv, rv, sum;
-    node *left, *right;
+const ll N = 1e18;
 
-
-    node() : left(NULL), right(NULL), sum(0) {}
-
-
-    inline void init(int l, int r) 
-    {
-        lv = l;
-        rv = r;
-    }
-
-
-    inline void extend() 
-    {
-        if (!left) {
-            int m = (lv + rv) / 2;
-            left = newNode();
-            right = newNode();
-            left->init(lv, m);
-            right->init(m + 1, rv);
-        }
-    }
-
-
-    int getSum(int l, int r) 
-    {
-        if (r < lv || rv < l) return 0;
-        
-
-        if (l <= lv && rv <= r) return sum;
-        
-
-        extend();
-        return left->getSum(l, r) + right->getSum(l, r);
-    }
-
-
-    void update(int p, int newVal) 
-    {
-        if (lv == rv) 
-        {
-            sum = newVal;
-            return;
-        }
-
-        extend();
-        (p <= left->rv ? left : right)->update(p, newVal);
-        sum = left->sum + right->sum;
-    }
-};
-
-
-node *newNode() 
+struct Node
 {
-    static int bufSize = 1e7;
-    static node buf[(int) 1e7];
-    assert(bufSize);
-    return &buf[--bufSize];
+     Node *lp, *rp;
+     ll sum;
+};
+inline ll eval(Node *p) { return p ? p->sum : 0LL; }
+
+const ll bufSize = 1e7;
+Node buf[bufSize];
+
+Node *newNode()
+{
+     static auto ptr = buf;
+     return ptr++;
 }
 
-
-int32_t main() 
+ll getSum(Node *cur, ll l, ll r, ll x, ll y)
 {
-     node *rmq = newNode();
-     rmq->init(0, 1e9);
+     if (!cur || x > r || y < l)
+          return 0;
+
+     if (x <= l && r <= y)
+          return cur->sum;
+
+     ll m = (l + r) / 2;
+
+     return getSum(cur->lp, l, m, x, y) + getSum(cur->rp, m + 1, r, x, y);
+}
+
+void update(Node *&cur, ll l, ll r, ll pos, ll val)
+{
+     if (!cur)
+          cur = newNode();
+     if (l == r)
+     {
+          cur->sum = val;
+     }
+     else
+     {
+          ll m = (l + r) / 2;
+          if (pos <= m)
+          {
+               update(cur->lp, l, m, pos, val);
+          }
+          else
+          {
+               update(cur->rp, m + 1, r, pos, val);
+          }
+          cur->sum = eval(cur->lp) + eval(cur->rp);
+     }
+}
+Node *root;
+
+int main()
+{
+     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+     return 0;
 }
