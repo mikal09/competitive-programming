@@ -1,20 +1,14 @@
 int bit[N];
 void update(int idx, int val)
 {
-     while(idx<=n)
-     {
-          bit[idx]+=val;
-          idx+=idx&-idx;
-     }
+     for (; idx <= n; idx = idx | (idx + 1))
+          bit[idx] += val;
 }
-int pref(int idx)
+int pref(int r)
 {
-     int ans=0;
-     while(idx>0)
-     {
-          ans+=bit[idx];
-          idx-=idx&-idx;
-     }
-     return ans;
+     int ret = 0;
+     for (; r > 0; r = (r & (r + 1)) - 1)
+          ret += bit[r];
+     return ret;
 }
-int rsum(int l, int r){ return pref(r) - pref(l-1); }
+int rsum(int l, int r) { return pref(r) - pref(l - 1); }
