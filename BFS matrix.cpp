@@ -6,9 +6,7 @@ void bfs(int x, int y, int n, int m)
 {
      queue<pair<int, int> > q;
      q.push({x, y});
-     ways[x][y]=1;
      vis[x][y]=1;
-     dist[x][y]=0;
      
      while(!q.empty())
      {
