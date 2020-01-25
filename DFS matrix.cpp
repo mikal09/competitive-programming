@@ -4,9 +4,6 @@ int dy[4] = {0, 0, +1, -1};
 
 void dfs(int x, int y)
 {
-	if (x == n && y == m)
-		return ;
-
 	vis[x][y] = 1;
 	for (int dir = 0; dir < 4; dir++)
 	{
