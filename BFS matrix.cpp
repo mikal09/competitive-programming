@@ -17,8 +17,7 @@ void bfs(int x, int y, int n, int m)
           {
                int x1 = x + dx[dir];
                int y1 = y + dy[dir];
-               if (x1 < 1 || y1 < 1 || x1 > n || y1 > m) 
-                    continue;
+               if (x1 < 1 || y1 < 1 || x1 > n || y1 > m) continue;
 
                if (!vis[x1][y1])
                {
