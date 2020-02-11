@@ -1,4 +1,4 @@
-// find solution from 0 to N.Make required changes according to the probelm;
+// finds solution from 0 to R. Make required changes according to the probelm;
 
 int dp(int pos, int free)
 {
@@ -10,18 +10,13 @@ int dp(int pos, int free)
           return ans;
 
      ans = 0;
-     if (!free)
-     {
-          for (int i = 0; i < s[pos] - '0'; i++)
-               ans += dp(pos + 1, 1);
+     int lmt = (free ? 10 : s[pos] - '0');
 
+     for (int i = 0; i < lmt; i++)
+          ans += dp(pos + 1, 1);
+
+     if (!free)
           ans += dp(pos + 1, 0);
-     }
-     else
-     {
-          for (int i = 0; i < 10; i++)
-               ans += dp(pos + 1, 1);
-     }
 
      return ans;
 }
