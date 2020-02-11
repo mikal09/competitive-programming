@@ -13,7 +13,7 @@ int dp(int pos, int free)
      if (!free)
      {
           for (int i = 0; i < s[pos] - '0'; i++)
-               ans += dp(pos, 1);
+               ans += dp(pos + 1, 1);
 
           ans += dp(pos + 1, 0);
      }
