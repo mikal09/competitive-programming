@@ -24,7 +24,7 @@ mat_expo getans(mat_expo bb, int k)
 {
      mat_expo aa;
      aa.eye();
-     while (k > 0)
+     while (k)
      {
           if (k & 1) aa = aa * bb;
           bb = bb * bb;
