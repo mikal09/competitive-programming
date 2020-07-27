@@ -19,9 +19,9 @@ void dfs1(int i)
 }
 bool cycle()
 {
-     for (int i = 1; i <= n + m; i++)
-          if (!vis[d.root(i)])
-               dfs((d.root(i)));
+     for (int i = 1; i <= n; i++)
+          if (!vis[i])
+               dfs(i);
 
      // if there is no loop in the graph then tsp store topological sort of the graph
      tps = order;
