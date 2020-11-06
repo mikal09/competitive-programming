@@ -16,18 +16,18 @@ void bridges(int i, int p)
      }
      for (auto x : g[i])
           if (t1[i] > t[x])
-               edges.pb(i,x);
+               edges.pb({i,x});
 }
 
 // articulation point
-void bridges(int i, int p)
+void articulation_point(int i, int p)
 {
      t[i] = t1[i] = ++tim;
 
      for (auto x : g[i])
      {
           if (!t[x])
-               bridges(x, i);
+               articulation_point(x, i);
           if (x != p)
                t1[i] = min(t1[i], t1[x]);
      }
