@@ -76,3 +76,52 @@ void postOrderIterative(Node* root)
           cout << node->data << " ";
      }
 }
+
+//pre and in
+void inordertraversal(TreeNode* root, vector <int> &v)
+{
+    stack <TreeNode*> stk;
+    stk.push(root);
+
+    while(root!=NULL)
+    {
+        root=root->left;
+
+        while(root==NULL and stk.size())
+        {
+            root = stk.top();
+            stk.pop();
+            v.push_back(root->val);                
+            root = root->right;
+        }
+
+        if(root!=NULL)
+            stk.push(root);
+
+    }
+
+}
+
+void preordertraversal(TreeNode* root, vector <int> &v)
+{
+    stack <TreeNode*> stk;
+    stk.push(root);
+
+    while(root!=NULL)
+    {
+        v.push_back(root->val);
+        root=root->left;
+
+        while(root==NULL and stk.size())
+        {
+            root = stk.top();
+            stk.pop();
+            root = root->right;
+        }
+
+        if(root!=NULL)
+            stk.push(root);
+
+    }
+
+}
