@@ -38,6 +38,6 @@ bool cycle()
 
           mx = max(mx, sz(sc));
      }
-
+     // if there is no self loops
      return (mx > 1);
 }
