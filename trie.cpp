@@ -1,11 +1,11 @@
 class Trie {
 public:
-     int end;
+     int isEnd;
      Trie *ar[26];
 
      Trie()
      {
-          end = 0;
+          isEnd = 0;
           for (int i = 0; i < 26; i++)
                ar[i] = NULL;
      }
@@ -21,11 +21,9 @@ void insert(Trie *trie, string s)
                Trie *cur = new Trie();
                temp->ar[s[i] - 'a'] = cur;
           }
-          if (i + 1 == s.size())
-               temp->end++;
-
           temp = temp->ar[s[i] - 'a'];
      }
+     temp->isEnd++;
 }
 bool query(Trie *trie, string s)
 {
@@ -34,11 +32,20 @@ bool query(Trie *trie, string s)
      {
           if (temp->ar[s[i] - 'a'] == NULL)
                return false;
-          if (i + 1 == s.size())
-               return (temp->end > 0);
-
           temp = temp->ar[s[i] - 'a'];
      }
 
-     return false;
+     return temp->isEnd;
+}
+
+void solve()
+{
+     Trie *trie = new Trie();
+
+     insert(trie, "abc");
+     insert(trie, "cde");
+     insert(trie, "acb");
+     insert(trie, "abd");
+
+     cout << query(trie, "ab");
 }
